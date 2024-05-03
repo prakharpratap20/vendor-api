@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
@@ -16,8 +15,8 @@ class VendorListCreateView(ListCreateAPIView):
     """
     API endpoint for listing and creating vendors.
     """
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    auth_class = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
 
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
@@ -27,8 +26,8 @@ class VendorRetrieveUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     """
     API endpoint for retrieving, updating, and deleting a vendor.
     """
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    auth_class = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
 
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
@@ -38,8 +37,8 @@ class PurchaseOrderListCreateView(ListCreateAPIView):
     """
     API endpoint for listing and creating purchase orders.
     """
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    auth_class = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
 
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderSerializer
@@ -49,8 +48,8 @@ class PurchaseOrderRetrieveUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     """
     API endpoint for retrieving, updating, and deleting a purchase order.
     """
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    auth_class = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
 
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderSerializer
@@ -60,8 +59,8 @@ class VendorPerformanceView(RetrieveAPIView):
     """
     API endpoint for retrieving a vendor's performance metrics.
     """
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    auth_class = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
 
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
@@ -83,8 +82,8 @@ class AcknowledgePurchaseOrderView(UpdateAPIView):
     """
     API endpoint for acknowledging a purchase order.
     """
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    auth_class = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
 
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderSerializer
