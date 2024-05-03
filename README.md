@@ -30,7 +30,4 @@ Open the Django admin at http://127.0.0.1:8000/admin/ and log in using the super
 
 - first make sure that you migrated the models to database
 - start the server using "python manage.py runserver" command.
-
-!(https://github.com/prakharpratap20/vendor-api/blob/main/screenshots/api_token.png?raw=true)
-
-https://github.com/prakharpratap20/vendor-api/blob/main/screenshots/create_vendor.png
+- check screenshots directory to understand more
