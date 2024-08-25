@@ -1,5 +1,9 @@
 from django.urls import path
 from .views import *
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     # Endpoint for listing and creating vendors
@@ -19,4 +23,8 @@ urlpatterns = [
     # Endpoint for acknowledging a purchase order
     path('purchase_orders/<str:pk>/acknowledge/',
          AcknowledgePurchaseOrderView.as_view(), name='acknowledge-purchase-order'),
+    # Create a user
+    path('users/', UserCreateView.as_view(), name='user-create'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

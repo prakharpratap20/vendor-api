@@ -3,7 +3,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models import Avg
 from django.db.models import F
-from django.db import models
 from django.utils import timezone
 
 
@@ -29,16 +28,23 @@ class PurchaseOrder(models.Model):
     """
     Model representing a purchase order.
     """
+    STATUS_CHOICES = [  # Choices for the status of the purchase order
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('canceled', 'Canceled'),
+    ]
+
     po_number = models.CharField(max_length=50, unique=True, primary_key=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     order_date = models.DateTimeField()
-    delivery_date = models.DateTimeField(null=False, blank=True)
+    delivery_date = models.DateTimeField(null=True, blank=True)
     items = models.JSONField()
-    status = models.CharField(max_length=20)
-    quality_rating = models.FloatField(null=False, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    quality_rating = models.FloatField(null=True, blank=True)
     issue_date = models.DateTimeField()
-    acknowledgment_date = models.DateTimeField(null=False, blank=True)
-    delivered_data = models.DateTimeField(null=False, blank=True)
+    acknowledgment_date = models.DateTimeField(null=True, blank=True)
+    delivered_data = models.DateTimeField(
+        null=True, blank=True)
 
     def __str__(self):
         return self.po_number
@@ -56,6 +62,7 @@ class HistoricalPerformance(models.Model):
     fulfillment_rate = models.FloatField()
 
 
+# Signal receiver to update vendor performance metrics after a purchase order is saved
 @receiver(post_save, sender=PurchaseOrder)
 def update_vendor_performance(sender, instance, **kwargs):
     """
@@ -83,6 +90,7 @@ def update_vendor_performance(sender, instance, **kwargs):
     instance.vendor.save()
 
 
+# Signal receiver to update average response time of a vendor after a purchase order is saved
 @receiver(post_save, sender=PurchaseOrder)
 def update_response_time(sender, instance, **kwargs):
     """
@@ -103,6 +111,7 @@ def update_response_time(sender, instance, **kwargs):
     instance.vendor.save()
 
 
+# Signal receiver to update fulfillment rate of a vendor after a purchase order is saved
 @receiver(post_save, sender=PurchaseOrder)
 def update_fulfillment_rate(sender, instance, **kwargs):
     """
