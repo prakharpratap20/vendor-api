@@ -9,34 +9,21 @@ from rest_framework.generics import (
 )
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
-# from rest_framework.permissions import IsAdminUser
-# from rest_framework.permissions import BasePermission
 from rest_framework import status, generics
 from rest_framework.response import Response
 from .models import Vendor, PurchaseOrder
 from .serializers import VendorSerializer, PurchaseOrderSerializer
 
 
-# class IsAdminUserOrReadOnly(BasePermission):
-#     """
-#     Custom permission to only allow admin users to perform certain actions.
-#     """
-
-#     def has_permission(self, request, view):
-#         if request.method in ['GET', 'OPTIONS', 'HEAD']:
-#             return request.user and request.user.is_staff
-#         return request.user and request.user.is_authenticated
-
-
 class VendorListCreateView(generics.ListCreateAPIView):
     """
     API endpoint for listing and creating vendors.
     """
-    auth_class = [TokenAuthentication]  # TokenAuthentication
-    permission_class = [IsAuthenticated]  # IsAuthenticated
+    auth_class = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
 
-    queryset = Vendor.objects.all()  # Vendor.objects.all()
-    serializer_class = VendorSerializer  # VendorSerializer
+    queryset = Vendor.objects.all()
+    serializer_class = VendorSerializer
 
     # def get_permissions(self):
     #     if self.request.method == 'GET':
@@ -50,11 +37,11 @@ class VendorRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     """
     API endpoint for retrieving, updating, and deleting a vendor.
     """
-    auth_class = [TokenAuthentication]  # TokenAuthentication
-    permission_class = [IsAuthenticated]  # IsAuthenticated
+    auth_class = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
 
-    queryset = Vendor.objects.all()  # Vendor.objects.all()
-    serializer_class = VendorSerializer  # VendorSerializer
+    queryset = Vendor.objects.all()
+    serializer_class = VendorSerializer
 
     def get_object(self):
         """
