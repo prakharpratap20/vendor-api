@@ -62,7 +62,6 @@ class HistoricalPerformance(models.Model):
     fulfillment_rate = models.FloatField()
 
 
-# Signal receiver to update vendor performance metrics after a purchase order is saved
 @receiver(post_save, sender=PurchaseOrder)
 def update_vendor_performance(sender, instance, **kwargs):
     """
@@ -90,7 +89,6 @@ def update_vendor_performance(sender, instance, **kwargs):
     instance.vendor.save()
 
 
-# Signal receiver to update average response time of a vendor after a purchase order is saved
 @receiver(post_save, sender=PurchaseOrder)
 def update_response_time(sender, instance, **kwargs):
     """
@@ -111,7 +109,6 @@ def update_response_time(sender, instance, **kwargs):
     instance.vendor.save()
 
 
-# Signal receiver to update fulfillment rate of a vendor after a purchase order is saved
 @receiver(post_save, sender=PurchaseOrder)
 def update_fulfillment_rate(sender, instance, **kwargs):
     """
